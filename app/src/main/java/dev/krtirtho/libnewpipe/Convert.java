@@ -241,11 +241,6 @@ public final class Convert {
         List<Map<String, Object>> videoStreams = streamInfo.getVideoStreams().stream().map(Convert::videoStreamMap).toList();
         List<Map<String, Object>> audioStreams = streamInfo.getAudioStreams().stream().map(Convert::audioStreamMap).toList();
 
-        // When audioStreams are empty we use muxed video+audio streams instead
-        if (audioStreams.isEmpty()) {
-            audioStreams = videoStreams.stream().filter(vs -> !vs.get("isVideoOnly").equals(true)).toList();
-        }
-
         // Stream mapping using Java Streams
         map.put("videoStreams", videoStreams);
         map.put("audioStreams", audioStreams);
