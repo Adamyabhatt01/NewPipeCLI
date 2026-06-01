@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class NewPipe {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Map<String, List<String>> parsed = parseArgs(args);
 
         String streams = getSingle(parsed, "--streams");

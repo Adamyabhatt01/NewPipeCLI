@@ -238,9 +238,17 @@ public final class Convert {
         map.put("subChannelUrl", streamInfo.getSubChannelUrl());
         map.put("subChannelAvatars", streamInfo.getSubChannelAvatars());
 
+        List<Map<String, Object>> videoStreams = streamInfo.getVideoStreams().stream().map(Convert::videoStreamMap).toList();
+        List<Map<String, Object>> audioStreams = streamInfo.getAudioStreams().stream().map(Convert::audioStreamMap).toList();
+
+        // When audioStreams are empty we use muxed video+audio streams instead
+        if (audioStreams.isEmpty()) {
+            audioStreams = videoStreams.stream().filter(vs -> !vs.get("isVideoOnly").equals(true)).toList();
+        }
+
         // Stream mapping using Java Streams
-        map.put("videoStreams", streamInfo.getVideoStreams().stream().map(Convert::videoStreamMap).collect(Collectors.toList()));
-        map.put("audioStreams", streamInfo.getAudioStreams().stream().map(Convert::audioStreamMap).collect(Collectors.toList()));
+        map.put("videoStreams", videoStreams);
+        map.put("audioStreams", audioStreams);
         map.put("videoOnlyStreams", streamInfo.getVideoOnlyStreams().stream().map(Convert::videoStreamMap).collect(Collectors.toList()));
 
         map.put("dashMpdUrl", streamInfo.getDashMpdUrl());
@@ -253,8 +261,8 @@ public final class Convert {
         map.put("category", streamInfo.getCategory());
         map.put("licence", streamInfo.getLicence());
         map.put("supportInfo", streamInfo.getSupportInfo());
-        if(streamInfo.getLanguageInfo() != null) {
-         map.put("language", streamInfo.getLanguageInfo().getDisplayName());
+        if (streamInfo.getLanguageInfo() != null) {
+            map.put("language", streamInfo.getLanguageInfo().getDisplayName());
         }
         map.put("tags", streamInfo.getTags());
 //         map.put("streamSegments", streamInfo.getStreamSegments().stream().map(Convert::strea));
