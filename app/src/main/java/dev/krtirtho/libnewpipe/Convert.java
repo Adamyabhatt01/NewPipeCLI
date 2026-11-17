@@ -75,8 +75,8 @@ public final class Convert {
      */
     public static Map<String, Object> descriptionMap(Description d) {
         Map<String, Object> map = new HashMap<>();
-        map.put("content", d.getContent());
-        map.put("type", d.getType());
+        map.put("content", d.content());
+        map.put("type", d.type());
         return map;
     }
 
