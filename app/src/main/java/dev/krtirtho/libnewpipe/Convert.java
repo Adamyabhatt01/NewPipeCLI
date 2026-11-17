@@ -76,7 +76,13 @@ public final class Convert {
     public static Map<String, Object> descriptionMap(Description d) {
         Map<String, Object> map = new HashMap<>();
         map.put("content", d.content());
-        map.put("type", d.type());
+        // Description is now a record with an enum Type; the Flutter model
+        // still expects the old int constants (HTML=1, MARKDOWN=2, PLAIN=3).
+        map.put("type", switch (d.type()) {
+            case HTML -> 1;
+            case MARKDOWN -> 2;
+            case PLAIN_TEXT -> 3;
+        });
         return map;
     }
 
