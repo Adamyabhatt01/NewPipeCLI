@@ -3,7 +3,7 @@
 
 [versions]
 guava = "33.4.6-jre"
-newpipeExtractor = "c0abfa985f31435e56b4024504e3cf903cf7795f" # Check for latest version
+newpipeExtractor = "6ce85c1af05bbb854bae73f8936fd9f75bb8f9e1" # Check for latest version
 graalvmNative = "0.11.2"
 okhttp3 = "4.12.0"
 nanojson = "c7a6c1c08d16b6d5ecded34758e6415e07be2166"
